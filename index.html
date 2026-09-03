@@ -74,6 +74,11 @@
     <!-- ════════ HERO ════════ -->
     <section id="hero">
         <div class="hero-bg-grid"></div>
+        <div class="hero-motion" aria-hidden="true">
+            <span class="motion-cube motion-cube-one"></span>
+            <span class="motion-cube motion-cube-two"></span>
+            <span class="motion-ring"></span>
+        </div>
         <div class="hero-content">
             <div class="badge">
                 <div class="badge-dot"></div> Ready to work
@@ -147,7 +152,7 @@
                         <div class="stat-l">Years Exp.</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-n" data-target="24.5" data-decimals="1">0</div>
+                        <div class="stat-n" data-target="23.5" data-decimals="1">0</div>
                         <div class="stat-l">Best Time</div>
                     </div>
                 </div>
@@ -279,6 +284,7 @@
                     placeholder="Tell me about your project..." required></textarea>
             </div>
             <button type="submit" id="submit-btn" class="f-btn btn-m">Send Message &#9992;</button>
+            <p class="form-note" id="contact-help">This opens a pre-filled email draft in your default email app.</p>
         </form>
     </section>
 
@@ -322,7 +328,7 @@
         </div>
     
         <p style="margin-top:8px;font-size:.8rem">
-            &copy; 2026 All Rights Reserved |
+            &copy; <span id="copyrightYear"></span> All Rights Reserved |
             <strong><a href="#hero" class="footer-link">Lalit Kumar</a></strong> &mdash; Full Stack &amp; AI/ML Engineer
         </p>
     </footer>
@@ -402,7 +408,7 @@
                     accent: 'var(--blue)',
                     tags: [{ label: 'GenAI', color: '#c084fc' }, { label: 'LangChain', color: 'var(--green)' }],
                     link: 'https://github.com/l4kushwaha',
-                    linkText: 'View Code'
+                    linkText: 'View GitHub'
                 },
                 {
                     title: 'Facial Emotion Recognition',
@@ -968,6 +974,9 @@
         // ══════════════════════════════════════════════════
         const contactForm = document.getElementById('contact-form');
         const submitBtn = document.getElementById('submit-btn');
+        const copyrightYear = document.getElementById('copyrightYear');
+
+        if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
 
         if (contactForm && submitBtn) {
             contactForm.addEventListener('submit', function (event) {
@@ -980,7 +989,7 @@
 
                 const originalBtnText = submitBtn.innerHTML;
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = 'Opening Email... <span class="spinner"></span>';
+                submitBtn.innerHTML = 'Opening Email Draft... <span class="spinner"></span>';
 
                 const body = 'Name: ' + name + '\n' +
                     'Email: ' + email + '\n\n' +
@@ -992,13 +1001,33 @@
 
                 window.location.href = mailtoLink;
 
-                submitBtn.innerHTML = 'Email App Opened! ✉️';
+                submitBtn.innerHTML = 'Email Draft Opened! ✉️';
                 submitBtn.style.background = 'var(--green)';
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnText;
                     submitBtn.style.background = '';
                 }, 5000);
+            });
+        }
+
+        // ── HERO 3D PARALLAX ─────────────────────────────
+        const hero = document.getElementById('hero');
+        const heroContent = hero?.querySelector('.hero-content');
+        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+        if (hero && heroContent && canHover) {
+            hero.addEventListener('pointermove', (event) => {
+                const rect = hero.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width - .5;
+                const y = (event.clientY - rect.top) / rect.height - .5;
+                heroContent.style.setProperty('--hero-tilt-x', `${-y * 5}deg`);
+                heroContent.style.setProperty('--hero-tilt-y', `${x * 7}deg`);
+            });
+
+            hero.addEventListener('pointerleave', () => {
+                heroContent.style.setProperty('--hero-tilt-x', '0deg');
+                heroContent.style.setProperty('--hero-tilt-y', '0deg');
             });
         }
     </script>

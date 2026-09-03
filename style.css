@@ -277,6 +277,68 @@
             position: relative;
             z-index: 2;
             max-width: 540px;
+            transform: perspective(1100px) rotateX(var(--hero-tilt-x, 0deg)) rotateY(var(--hero-tilt-y, 0deg));
+            transform-style: preserve-3d;
+            transition: transform .22s ease-out;
+            will-change: transform;
+        }
+
+        /* ── HERO 3D MOTION ── */
+        .hero-motion {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            perspective: 900px;
+            z-index: 1;
+        }
+
+        .motion-cube {
+            position: absolute;
+            width: 52px;
+            height: 52px;
+            border: 2px solid rgba(255, 213, 0, .5);
+            background: linear-gradient(135deg, rgba(255, 88, 0, .2), rgba(0, 81, 162, .12));
+            box-shadow: 0 0 36px rgba(255, 213, 0, .14), inset 0 0 20px rgba(255, 255, 255, .08);
+            transform-style: preserve-3d;
+            animation: orbitCube 12s ease-in-out infinite;
+        }
+
+        .motion-cube::before,
+        .motion-cube::after {
+            content: '';
+            position: absolute;
+            inset: 7px;
+            border: 1px solid rgba(255, 255, 255, .25);
+            transform: translateZ(12px);
+        }
+
+        .motion-cube::after {
+            transform: rotateY(90deg) translateZ(12px);
+        }
+
+        .motion-cube-one { top: 20%; left: 8%; animation-delay: -2s; }
+        .motion-cube-two { right: 7%; bottom: 16%; width: 34px; height: 34px; border-color: rgba(0, 180, 216, .58); animation-delay: -7s; }
+
+        .motion-ring {
+            position: absolute;
+            top: 18%; right: 18%;
+            width: 120px;
+            height: 120px;
+            border: 1px solid rgba(0, 180, 216, .35);
+            border-radius: 50%;
+            box-shadow: 0 0 44px rgba(0, 180, 216, .12);
+            animation: orbitRing 14s linear infinite;
+        }
+
+        @keyframes orbitCube {
+            0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translate3d(24px, -42px, 80px) rotateX(190deg) rotateY(250deg); }
+        }
+
+        @keyframes orbitRing {
+            from { transform: rotateX(68deg) rotateZ(0deg); }
+            to { transform: rotateX(68deg) rotateZ(360deg); }
         }
 
         .badge {
@@ -1260,6 +1322,14 @@
             box-shadow: 0 8px 40px rgba(255, 88, 0, .5);
         }
 
+        .form-note {
+            margin-top: 14px;
+            color: var(--dim);
+            font-size: .8rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
         /* ── FOOTER ── */
         footer {
             background: #050508;
@@ -1495,6 +1565,15 @@
 
             .nav-links {
                 gap: 20px
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
             }
         }
 
