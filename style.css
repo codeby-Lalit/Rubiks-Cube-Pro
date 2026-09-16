@@ -1256,6 +1256,8 @@
         .proj-f,
         .proj-bk {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
@@ -1265,6 +1267,28 @@
             border: none;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow-y: auto;
+        }
+
+        /* Robust flip: Chromium keeps backfacing elements in the paint/hit tree even
+           with backface-visibility:hidden, so drive faces with visibility + pointer
+           events in addition to the 3D rotation. This guarantees the back links are
+           both visible and clickable once the card is flipped. */
+        .proj-bk {
+            transform: rotateY(180deg);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .proj:hover .proj-bk,
+        .proj.flipped .proj-bk {
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .proj:hover .proj-f,
+        .proj.flipped .proj-f {
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .proj-f {

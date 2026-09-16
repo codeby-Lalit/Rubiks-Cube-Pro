@@ -187,7 +187,7 @@
                 <div class="about-stats-wrapper">
                     <div class="stats">
                         <div class="stat">
-                            <div class="stat-n" data-target="8">0</div>
+                            <div class="stat-n" data-target="10">0</div>
                             <div class="stat-l">Core Techs</div>
                         </div>
                         <div class="stat">
@@ -655,15 +655,15 @@
         // ══════════════════════════════════════════════════
         document.querySelectorAll('#projectsGrid .proj-inner').forEach(inner => {
             const card = inner.parentElement;
+            const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
             inner.addEventListener('click', e => {
-                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+                if (finePointer) return;
                 if (e.target.closest('.proj-link')) return;
                 card.classList.toggle('flipped');
             });
             inner.addEventListener('keydown', e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
                     card.classList.toggle('flipped');
                 }
             });
