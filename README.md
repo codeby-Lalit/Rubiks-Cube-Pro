@@ -56,13 +56,13 @@ The contact form uses a direct **mailto** approach — clicking "Send Message" o
 
 The site is hosted for free on **GitHub Pages** — live at:
 
-**https://l4kushwaha.github.io/Rubiks-Cube-Pro/**
+**https://codeby-lalit.github.io/Rubiks-Cube-Pro/**
 
 ## 🧑‍💻 About
 
 Developed by **Lalit Kumar** — Full Stack Developer & AI/ML Engineer.
 
-- GitHub: [l4kushwaha](https://github.com/l4kushwaha)
+- GitHub: [codeby-Lalit](https://github.com/codeby-Lalit)
 - LinkedIn: [lalit-kushwaha-dev](https://www.linkedin.com/in/lalit-kushwaha-dev)
 - LeetCode: [lalit__kushwaha](https://leetcode.com/u/lalit__kushwaha/)
 
