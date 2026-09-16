@@ -584,16 +584,21 @@
         (function renderEducation() {
             const grid = document.getElementById('eduGrid');
             if (!grid || !SITE_DATA.education.length) return;
-            grid.innerHTML = SITE_DATA.education.map((e, i) => `
-                <div class="edu-card up" data-step="${i + 1}" style="--eb:${e.color};--es:0 20px 55px ${e.glow}">
-                    <div class="edu-top">
-                        <span class="edu-ico">${e.icon}</span>
-                        <span class="edu-year">${e.year}</span>
+            grid.innerHTML = `
+                <div class="edu-row">
+                    <span class="edu-label">My Journey</span>
+                    <div class="edu-wrap">
+                        ${SITE_DATA.education.map(e => `
+                            <div class="edu-chip" style="--ec:${e.color};--eg:${e.glow}" title="${e.note}">
+                                <span class="edu-chip-ico">${e.icon}</span>
+                                <span>
+                                    <span class="edu-chip-degree">${e.degree}</span>
+                                    <span class="edu-chip-school">${e.school}</span>
+                                </span>
+                                <span class="edu-chip-year">${e.year}</span>
+                            </div>`).join('')}
                     </div>
-                    <h3 class="edu-degree">${e.degree}</h3>
-                    <p class="edu-school">${e.school}</p>
-                    <p class="edu-note">${e.note}</p>
-                </div>`).join('');
+                </div>`;
         })();
 
         // ══════════════════════════════════════════════════
