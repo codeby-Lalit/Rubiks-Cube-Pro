@@ -502,14 +502,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: cubeFloat 6s ease-in-out infinite;
-        }
-
-        @keyframes cubeFloat {
-            0%, 100% { transform: translateY(0) rotateX(0deg) rotateZ(0deg); }
-            25% { transform: translateY(-12px) rotateX(1.5deg) rotateZ(1.2deg); }
-            50% { transform: translateY(-6px) rotateX(-1deg) rotateZ(-0.8deg); }
-            75% { transform: translateY(-12px) rotateX(1.2deg) rotateZ(0.6deg); }
         }
 
         #cubeScene {
@@ -924,44 +916,29 @@
             padding: 28px;
             border-top: 3px solid var(--eb);
             box-shadow: var(--es);
-            transition: transform .4s cubic-bezier(.175, .885, .32, 1.275), box-shadow .4s;
+            transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            transform-style: preserve-3d;
-            will-change: transform;
+            position: relative;
+            overflow: hidden;
         }
 
         .edu-card::before {
-            content: '';
+            content: attr(data-step);
             position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            background: radial-gradient(circle at var(--tilt-gx, 50%) var(--tilt-gy, 50%), rgba(255, 255, 255, .12), transparent 55%);
-            opacity: 0;
-            transition: opacity .3s;
+            right: -8px;
+            bottom: -22px;
+            font: 900 5.5rem 'JetBrains Mono', monospace;
+            color: rgba(255, 255, 255, .04);
+            line-height: 1;
             pointer-events: none;
-            z-index: 2;
-        }
-
-        .edu-card:hover::before {
-            opacity: 1;
-        }
-
-        .edu-card.edu-tilted {
-            transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-6px);
         }
 
         .edu-card:hover {
-            box-shadow: 0 28px 70px rgba(0, 0, 0, .5);
-        }
-
-        .edu-top,
-        .edu-degree,
-        .edu-school,
-        .edu-note,
-        .edu-ico {
-            transform: translateZ(24px);
+            transform: translateY(-8px);
+            box-shadow: 0 28px 60px rgba(0, 0, 0, .5);
+            border-color: var(--eb);
         }
 
         .edu-top {
@@ -1039,25 +1016,12 @@
         }
 
         .skill-card:hover {
-            transform: translateY(-10px) rotateX(4deg) rotateY(-4deg);
+            transform: translateY(-10px);
             box-shadow: var(--sh, 0 20px 50px rgba(0, 0, 0, 0.4));
         }
 
         .skill-card:hover::before {
             opacity: 1;
-        }
-
-        .skill-card .sk-scene {
-            transform-style: preserve-3d;
-        }
-
-        .skill-card:hover .sk-scene {
-            animation: skFloat .9s ease-in-out infinite alternate;
-        }
-
-        @keyframes skFloat {
-            from { transform: perspective(600px) rotateX(0deg); }
-            to { transform: perspective(600px) rotateX(8deg) scale(1.06); }
         }
 
         .sk-html {

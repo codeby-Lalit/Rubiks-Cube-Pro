@@ -584,8 +584,8 @@
         (function renderEducation() {
             const grid = document.getElementById('eduGrid');
             if (!grid || !SITE_DATA.education.length) return;
-            grid.innerHTML = SITE_DATA.education.map(e => `
-                <div class="edu-card up" style="--eb:${e.color};--es:0 20px 55px ${e.glow}">
+            grid.innerHTML = SITE_DATA.education.map((e, i) => `
+                <div class="edu-card up" data-step="${i + 1}" style="--eb:${e.color};--es:0 20px 55px ${e.glow}">
                     <div class="edu-top">
                         <span class="edu-ico">${e.icon}</span>
                         <span class="edu-year">${e.year}</span>
@@ -674,31 +674,6 @@
                     card.style.setProperty('--tilt-x', '0deg');
                     card.style.setProperty('--tilt-y', '0deg');
                     card.querySelector('.proj-inner')?.classList.remove('proj-tilted');
-                });
-            });
-        }
-
-        // ══════════════════════════════════════════════════
-        //  EDUCATION CARDS — 3D TILT FOLLOW CURSOR
-        // ══════════════════════════════════════════════════
-        if (tiltable) {
-            document.querySelectorAll('#eduGrid .edu-card').forEach(card => {
-                let rAF = null;
-                card.addEventListener('pointermove', e => {
-                    const r = card.getBoundingClientRect();
-                    const px = (e.clientX - r.left) / r.width - .5;
-                    const py = (e.clientY - r.top) / r.height - .5;
-                    card.style.setProperty('--tilt-x', (py * -9).toFixed(2) + 'deg');
-                    card.style.setProperty('--tilt-y', (px * 11).toFixed(2) + 'deg');
-                    card.style.setProperty('--tilt-gx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
-                    card.style.setProperty('--tilt-gy', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
-                    cancelAnimationFrame(rAF);
-                    rAF = requestAnimationFrame(() => card.classList.add('edu-tilted'));
-                });
-                card.addEventListener('pointerleave', () => {
-                    card.style.setProperty('--tilt-x', '0deg');
-                    card.style.setProperty('--tilt-y', '0deg');
-                    card.classList.remove('edu-tilted');
                 });
             });
         }
