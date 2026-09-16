@@ -143,17 +143,18 @@
                         <div class="stat-n" data-target="10">0</div>
                         <div class="stat-l">Core Techs</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-n" data-target="4">0</div>
-                        <div class="stat-l">Projects</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-n" data-target="2">0</div>
-                        <div class="stat-l">Years Exp.</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-n" data-target="23.5" data-decimals="1">0</div>
-                        <div class="stat-l">Best Time</div>
+<div class="stat">
+                            <div class="stat-n" data-target="7">0</div>
+                            <div class="stat-l">Projects</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-n" data-target="2">0</div>
+                            <div class="stat-l">Years Exp.</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-n" data-target="23.5" data-decimals="1">0</div>
+                            <div class="stat-l">Best Time</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,7 +190,7 @@
                             <div class="stat-l">Core Techs</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-n" data-target="4">0</div>
+                            <div class="stat-n" data-target="7">0</div>
                             <div class="stat-l">Projects</div>
                         </div>
                         <div class="stat">
@@ -437,6 +438,36 @@
                     linkText: 'View Code'
                 },
                 {
+                    title: 'Age &amp; Gender Prediction',
+                    desc: 'Jupyter notebook predicting age &amp; gender from facial data with emotion context &mdash; pandas, CNN &amp; visualization.',
+                    emoji: '&#128100;',
+                    gradient: 'linear-gradient(135deg,#0051A2,#00b4d8)',
+                    accent: 'var(--blue)',
+                    tags: [{ label: 'Python', color: 'var(--blue)' }, { label: 'ML', color: 'var(--green)' }],
+                    link: 'https://github.com/heyy-elegent/age-gender-emotion-prediction',
+                    linkText: 'View Code'
+                },
+                {
+                    title: 'Text-to-Image (Stable Diffusion)',
+                    desc: 'Gradio-powered Stable Diffusion v1.5 generator with 5 schedulers and auto GPU/CPU device detection.',
+                    emoji: '&#127912;',
+                    gradient: 'linear-gradient(135deg,#EE4C2C,#F7931E)',
+                    accent: '#EE4C2C',
+                    tags: [{ label: 'Diffusers', color: '#EE4C2C' }, { label: 'Gradio', color: '#F7931E' }],
+                    link: 'https://github.com/heyy-elegent/Text_to_image_project',
+                    linkText: 'View Code'
+                },
+                {
+                    title: 'Weather App',
+                    desc: 'Lightweight client-side weather web app &mdash; current conditions, 5-day forecast &amp; tips via OpenWeatherMap API.',
+                    emoji: '&#9925;',
+                    gradient: 'linear-gradient(135deg,#0ea5e9,#7dd3fc)',
+                    accent: '#0ea5e9',
+                    tags: [{ label: 'Vanilla JS', color: 'var(--yellow)' }, { label: 'REST API', color: 'var(--green)' }],
+                    link: 'https://github.com/heyy-elegent/weather',
+                    linkText: 'View Code'
+                },
+                {
                     title: 'Circuit Networks (velox)',
                     desc: 'Offline intelligent DOCX manuscript formatting engine &mdash; converts messy manuscripts into publication-ready documents, 100% offline.',
                     emoji: '&#128196;',
@@ -512,6 +543,34 @@
                 </div>`;
             }).join('');
         })();
+
+        // ══════════════════════════════════════════════════
+        //  PROJECT CARDS — 3D TILT FOLLOW CURSOR
+        // ══════════════════════════════════════════════════
+        const tiltable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (tiltable) {
+            document.querySelectorAll('#projectsGrid .proj').forEach(card => {
+                let rAF = null;
+                card.addEventListener('pointermove', e => {
+                    const r = card.getBoundingClientRect();
+                    const px = (e.clientX - r.left) / r.width - .5;
+                    const py = (e.clientY - r.top) / r.height - .5;
+                    card.style.setProperty('--tilt-x', (py * -10).toFixed(2) + 'deg');
+                    card.style.setProperty('--tilt-y', (px * 12).toFixed(2) + 'deg');
+                    card.style.setProperty('--tilt-gx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
+                    card.style.setProperty('--tilt-gy', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
+                    cancelAnimationFrame(rAF);
+                    rAF = requestAnimationFrame(() => {
+                        card.querySelector('.proj-inner')?.classList.add('proj-tilted');
+                    });
+                });
+                card.addEventListener('pointerleave', () => {
+                    card.style.setProperty('--tilt-x', '0deg');
+                    card.style.setProperty('--tilt-y', '0deg');
+                    card.querySelector('.proj-inner')?.classList.remove('proj-tilted');
+                });
+            });
+        }
 
         // ══════════════════════════════════════════════════
         //  CURSOR

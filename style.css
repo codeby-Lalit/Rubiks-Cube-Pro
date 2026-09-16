@@ -743,10 +743,18 @@
         }
 
         .sec-title span {
-            background: linear-gradient(135deg, var(--red), var(--yellow));
+            background: linear-gradient(135deg, var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .sec-sub {
@@ -1082,6 +1090,29 @@
             height: 310px;
         }
 
+        .proj-tilted .proj-inner {
+            transform: perspective(1000px)
+                rotateX(var(--tilt-x, 0deg))
+                rotateY(var(--tilt-y, 0deg));
+            transition: transform .35s ease-out;
+        }
+
+        .proj::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(circle at var(--tilt-gx, 50%) var(--tilt-gy, 50%), rgba(255, 255, 255, .09), transparent 55%);
+            opacity: 0;
+            transition: opacity .3s;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .proj:hover::after {
+            opacity: 1;
+        }
+
         .proj-inner {
             width: 100%;
             height: 100%;
@@ -1111,6 +1142,25 @@
             background: rgba(255, 255, 255, .025);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .proj-f::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, .08), transparent);
+            transform: skewX(-20deg);
+            transition: left .8s ease;
+            pointer-events: none;
+        }
+
+        .proj:hover .proj-f::before {
+            left: 140%;
         }
 
         .proj-bk {
