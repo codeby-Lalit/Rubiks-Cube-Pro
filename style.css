@@ -1665,42 +1665,14 @@
                 padding: 80px 24px
             }
 
-
-
             #about {
-                display: flex;
-                flex-direction: column;
-                gap: 30px;
-                text-align: center;
-                align-items: center;
-            }
-
-            .sec-head {
-                order: 1;
-                margin-bottom: 25px;
-            }
-
-            .about-photo {
-                order: 2;
-                width: 140px;
-                height: 140px;
-                margin: 0 auto;
-            }
-
-            .about-stats-wrapper {
-                order: 3;
-                width: 100%;
-                max-width: 320px;
-                margin: 0 auto;
-            }
-
-            .about-bio {
-                order: 4;
-                width: 100%;
+                display: block;
+                text-align: left;
             }
 
             .about-container {
-                display: contents;
+                grid-template-columns: 1.1fr 1fr;
+                gap: 40px;
             }
 
 
