@@ -271,7 +271,7 @@
         <div class="sec-head">
             <div class="sec-tag">04 &mdash; Projects</div>
             <h2 class="sec-title">Featured <span>Work</span></h2>
-            <p class="sec-sub">Hover a card to reveal details</p>
+            <p class="sec-sub">Hover a card to reveal details &mdash; view code or try it live</p>
         </div>
         <div class="projects-grid" id="projectsGrid"></div>
     </section>
@@ -634,16 +634,16 @@
                 ).join('');
                 return `
                 <div class="proj up">
-                    <div class="proj-inner">
+                    <div class="proj-inner" tabindex="0" role="button" aria-label="View ${p.title} details">
                         <div class="proj-f" style="border-top:3px solid ${p.accent}">
                             <div class="proj-num">${num} / ${total}</div>
-                            <div class="proj-ico" style="background:${p.gradient}; border-radius: 12px; height: 120px; width: 100%; margin-bottom: 12px; display:flex; align-items:center; justify-content:center; font-size:3rem;">${p.emoji}</div>
+                            <div class="proj-ico" style="background:${p.gradient}">${p.emoji}</div>
                             <div class="proj-title">${p.title}</div>
                             <div class="proj-tags">${tags}</div>
                         </div>
                         <div class="proj-bk">
                             <div class="proj-desc">${p.desc}</div>
-                            <a href="${p.link}" class="proj-link" target="_blank">${p.linkText} &rarr;</a>
+                            <a href="${p.link}" class="proj-link" target="_blank" rel="noopener">${p.linkText} &rarr;</a>
                         </div>
                     </div>
                 </div>`;
@@ -651,32 +651,23 @@
         })();
 
         // ══════════════════════════════════════════════════
-        //  PROJECT CARDS — 3D TILT FOLLOW CURSOR
+        //  PROJECT CARDS — FLIP (hover) + TAP-TO-FLIP (touch)
         // ══════════════════════════════════════════════════
-        const tiltable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        if (tiltable) {
-            document.querySelectorAll('#projectsGrid .proj').forEach(card => {
-                let rAF = null;
-                card.addEventListener('pointermove', e => {
-                    const r = card.getBoundingClientRect();
-                    const px = (e.clientX - r.left) / r.width - .5;
-                    const py = (e.clientY - r.top) / r.height - .5;
-                    card.style.setProperty('--tilt-x', (py * -10).toFixed(2) + 'deg');
-                    card.style.setProperty('--tilt-y', (px * 12).toFixed(2) + 'deg');
-                    card.style.setProperty('--tilt-gx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
-                    card.style.setProperty('--tilt-gy', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
-                    cancelAnimationFrame(rAF);
-                    rAF = requestAnimationFrame(() => {
-                        card.querySelector('.proj-inner')?.classList.add('proj-tilted');
-                    });
-                });
-                card.addEventListener('pointerleave', () => {
-                    card.style.setProperty('--tilt-x', '0deg');
-                    card.style.setProperty('--tilt-y', '0deg');
-                    card.querySelector('.proj-inner')?.classList.remove('proj-tilted');
-                });
+        document.querySelectorAll('#projectsGrid .proj-inner').forEach(inner => {
+            const card = inner.parentElement;
+            inner.addEventListener('click', e => {
+                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+                if (e.target.closest('.proj-link')) return;
+                card.classList.toggle('flipped');
             });
-        }
+            inner.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+                    card.classList.toggle('flipped');
+                }
+            });
+        });
 
         // ══════════════════════════════════════════════════
         //  CURSOR

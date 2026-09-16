@@ -103,6 +103,22 @@
             cursor: grabbing;
         }
 
+        /* Hide the custom cursor on touch devices (no mousemove → would sit at 0,0) */
+        @media (pointer: coarse) {
+            #cur,
+            #cur-dot {
+                display: none;
+            }
+
+            body,
+            a,
+            button,
+            [onclick],
+            [role="button"] {
+                cursor: auto;
+            }
+        }
+
         /* ── SCROLL PROGRESS ── */
         #progress {
             position: fixed;
@@ -1205,13 +1221,7 @@
         .proj {
             perspective: 1000px;
             height: 310px;
-        }
-
-        .proj-tilted .proj-inner {
-            transform: perspective(1000px)
-                rotateX(var(--tilt-x, 0deg))
-                rotateY(var(--tilt-y, 0deg));
-            transition: transform .35s ease-out;
+            position: relative;
         }
 
         .proj::after {
@@ -1219,7 +1229,7 @@
             position: absolute;
             inset: 0;
             border-radius: 20px;
-            background: radial-gradient(circle at var(--tilt-gx, 50%) var(--tilt-gy, 50%), rgba(255, 255, 255, .09), transparent 55%);
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .06), transparent 60%);
             opacity: 0;
             transition: opacity .3s;
             pointer-events: none;
@@ -1238,7 +1248,8 @@
             transition: transform .7s cubic-bezier(.4, 0, .2, 1);
         }
 
-        .proj:hover .proj-inner {
+        .proj:hover .proj-inner,
+        .proj.flipped .proj-inner {
             transform: rotateY(180deg);
         }
 
@@ -1250,9 +1261,10 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             border-radius: 20px;
-            padding: 28px;
+            padding: 24px;
             border: none;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
         }
 
         .proj-f {
@@ -1297,8 +1309,14 @@
         }
 
         .proj-ico {
-            font-size: 2.5rem;
+            height: 120px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
             margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .proj-title {
@@ -1366,6 +1384,10 @@
 
         .p6 .proj-f {
             border-top: 3px solid #aaa
+        }
+
+        .p7 .proj-f {
+            border-top: 3px solid #a78bfa
         }
 
         /* ── CONTACT ── */
@@ -1671,8 +1693,17 @@
             }
 
             .about-container {
-                grid-template-columns: 1.1fr 1fr;
-                gap: 40px;
+                grid-template-columns: 1fr;
+                grid-template-areas: "photo" "stats" "bio";
+                gap: 24px;
+            }
+
+            .about-photo.mobile-only {
+                grid-area: photo;
+            }
+
+            .about-stats-wrapper.mobile-only {
+                grid-area: stats;
             }
 
 
