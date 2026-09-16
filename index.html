@@ -584,21 +584,16 @@
         (function renderEducation() {
             const grid = document.getElementById('eduGrid');
             if (!grid || !SITE_DATA.education.length) return;
-            grid.innerHTML = `
-                <div class="edu-row">
-                    <span class="edu-label">My Journey</span>
-                    <div class="edu-wrap">
-                        ${SITE_DATA.education.map(e => `
-                            <div class="edu-chip" style="--ec:${e.color};--eg:${e.glow}" title="${e.note}">
-                                <span class="edu-chip-ico">${e.icon}</span>
-                                <span>
-                                    <span class="edu-chip-degree">${e.degree}</span>
-                                    <span class="edu-chip-school">${e.school}</span>
-                                </span>
-                                <span class="edu-chip-year">${e.year}</span>
-                            </div>`).join('')}
+            grid.innerHTML = SITE_DATA.education.map(e => `
+                <div class="edu-row" style="--ec:${e.color}">
+                    <span class="edu-row-ico">${e.icon}</span>
+                    <div class="edu-row-body">
+                        <span class="edu-row-degree">${e.degree}</span>
+                        <span class="edu-row-school">${e.school}</span>
+                        <span class="edu-row-note">${e.note}</span>
                     </div>
-                </div>`;
+                    <span class="edu-row-year">${e.year}</span>
+                </div>`).join('');
         })();
 
         // ══════════════════════════════════════════════════
