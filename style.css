@@ -502,6 +502,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: cubeFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes cubeFloat {
+            0%, 100% { transform: translateY(0) rotateX(0deg) rotateZ(0deg); }
+            25% { transform: translateY(-12px) rotateX(1.5deg) rotateZ(1.2deg); }
+            50% { transform: translateY(-6px) rotateX(-1deg) rotateZ(-0.8deg); }
+            75% { transform: translateY(-12px) rotateX(1.2deg) rotateZ(0.6deg); }
         }
 
         #cubeScene {
@@ -895,6 +903,107 @@
 
 
 
+        /* ── EDUCATION ── */
+        #education {
+            background: var(--bg2);
+            padding: 120px 20px;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .edu-card {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .07);
+            border-radius: 20px;
+            padding: 28px;
+            border-top: 3px solid var(--eb);
+            box-shadow: var(--es);
+            transition: transform .4s cubic-bezier(.175, .885, .32, 1.275), box-shadow .4s;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .edu-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(circle at var(--tilt-gx, 50%) var(--tilt-gy, 50%), rgba(255, 255, 255, .12), transparent 55%);
+            opacity: 0;
+            transition: opacity .3s;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .edu-card:hover::before {
+            opacity: 1;
+        }
+
+        .edu-card.edu-tilted {
+            transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-6px);
+        }
+
+        .edu-card:hover {
+            box-shadow: 0 28px 70px rgba(0, 0, 0, .5);
+        }
+
+        .edu-top,
+        .edu-degree,
+        .edu-school,
+        .edu-note,
+        .edu-ico {
+            transform: translateZ(24px);
+        }
+
+        .edu-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .edu-ico {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .edu-year {
+            font: 600 .78rem 'JetBrains Mono', monospace;
+            color: var(--dim);
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, .05);
+            padding: 5px 12px;
+            border-radius: 100px;
+        }
+
+        .edu-degree {
+            font-size: 1.08rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .edu-school {
+            color: var(--yellow);
+            font-weight: 600;
+            font-size: .92rem;
+        }
+
+        .edu-note {
+            color: var(--dim);
+            font-size: .88rem;
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
         /* ── SKILLS ── */
         #skills {
             background: var(--bg);
@@ -930,12 +1039,25 @@
         }
 
         .skill-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) rotateX(4deg) rotateY(-4deg);
             box-shadow: var(--sh, 0 20px 50px rgba(0, 0, 0, 0.4));
         }
 
         .skill-card:hover::before {
             opacity: 1;
+        }
+
+        .skill-card .sk-scene {
+            transform-style: preserve-3d;
+        }
+
+        .skill-card:hover .sk-scene {
+            animation: skFloat .9s ease-in-out infinite alternate;
+        }
+
+        @keyframes skFloat {
+            from { transform: perspective(600px) rotateX(0deg); }
+            to { transform: perspective(600px) rotateX(8deg) scale(1.06); }
         }
 
         .sk-html {
@@ -1050,6 +1172,52 @@
 
         .sk-html .bar {
             background: linear-gradient(90deg, var(--orange), var(--red))
+        }
+
+        .tools-strip {
+            max-width: 1100px;
+            margin: 46px auto 0;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .07);
+            border-radius: 18px;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .tools-label {
+            font: 700 .8rem 'JetBrains Mono', monospace;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--yellow);
+            white-space: nowrap;
+        }
+
+        .tools-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tool-chip {
+            font: 500 .82rem 'Space Grotesk', sans-serif;
+            color: var(--light);
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            padding: 6px 14px;
+            border-radius: 100px;
+            transition: all .25s;
+            user-select: none;
+        }
+
+        .tool-chip:hover {
+            color: #fff;
+            border-color: var(--yellow);
+            background: rgba(255, 213, 0, .1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
         }
 
         .sk-css .bar {
@@ -1488,6 +1656,10 @@
             .projects-grid {
                 grid-template-columns: repeat(2, 1fr)
             }
+
+            .edu-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
         }
 
         @media (max-width: 1024px) {
@@ -1592,6 +1764,10 @@
             }
 
             .projects-grid {
+                grid-template-columns: 1fr
+            }
+
+            .edu-grid {
                 grid-template-columns: 1fr
             }
 

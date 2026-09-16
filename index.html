@@ -65,6 +65,7 @@
         </button>
         <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -215,13 +216,47 @@
         <div class="pip"></div>
     </div>
 
+    <!-- ════════ EDUCATION ════════ -->
+    <section id="education">
+        <div class="sec-head">
+            <div class="sec-tag">02 &mdash; Education</div>
+            <h2 class="sec-title">Where I <span>Learn</span></h2>
+        </div>
+        <div class="edu-grid" id="eduGrid"></div>
+    </section>
+
+    <div class="pips" style="background:var(--bg2)">
+        <div class="pip"></div>
+        <div class="pip"></div>
+        <div class="pip"></div>
+        <div class="pip"></div>
+    </div>
+
     <!-- ════════ SKILLS ════════ -->
     <section id="skills">
         <div class="sec-head">
-            <div class="sec-tag">02 &mdash; Skills</div>
+            <div class="sec-tag">03 &mdash; Skills</div>
             <h2 class="sec-title">My <span>Tech Stack</span></h2>
         </div>
         <div class="skills-grid" id="skillsGrid"></div>
+        <div class="tools-strip up">
+            <span class="tools-label">Tools &amp; Platforms</span>
+            <div class="tools-wrap">
+                <span class="tool-chip">VS Code</span>
+                <span class="tool-chip">Jupyter</span>
+                <span class="tool-chip">Git &amp; GitHub</span>
+                <span class="tool-chip">Node.js</span>
+                <span class="tool-chip">React</span>
+                <span class="tool-chip">REST APIs</span>
+                <span class="tool-chip">Power BI</span>
+                <span class="tool-chip">AutoCAD</span>
+                <span class="tool-chip">Cloudflare Workers</span>
+                <span class="tool-chip">Vercel</span>
+                <span class="tool-chip">AWS S3</span>
+                <span class="tool-chip">Google Cloud Storage</span>
+                <span class="tool-chip">Hadoop</span>
+            </div>
+        </div>
     </section>
 
     <div class="pips" style="background:var(--bg2)">
@@ -234,7 +269,7 @@
     <!-- ════════ PROJECTS ════════ -->
     <section id="projects">
         <div class="sec-head">
-            <div class="sec-tag">03 &mdash; Projects</div>
+            <div class="sec-tag">04 &mdash; Projects</div>
             <h2 class="sec-title">Featured <span>Work</span></h2>
             <p class="sec-sub">Hover a card to reveal details</p>
         </div>
@@ -250,7 +285,7 @@
     <!-- ════════ CONTACT ════════ -->
     <section id="contact">
         <div class="sec-head">
-            <div class="sec-tag">04 &mdash; Contact</div>
+            <div class="sec-tag">05 &mdash; Contact</div>
             <h2 class="sec-title">Let's <span>Connect</span></h2>
             <p class="sec-sub">Have a project? Let's solve it together.</p>
         </div>
@@ -342,6 +377,35 @@
         //  Naya skill/project add karne ke liye bas ek object copy karo
         // ══════════════════════════════════════════════════
         const SITE_DATA = {
+            education: [
+                {
+                    degree: 'B.Tech — Computer Science (AI &amp; Data Science)',
+                    school: 'Poornima University, Jaipur, Rajasthan',
+                    year: '2023 — Ongoing',
+                    icon: '&#127891;',
+                    color: '#00c4cc',
+                    glow: 'rgba(0,196,204,.15)',
+                    note: 'Currently pursuing with an average CGPA of 8.7'
+                },
+                {
+                    degree: 'Senior Secondary (Class XII)',
+                    school: 'Triveni Kashi Inter College, Unnao, Uttar Pradesh',
+                    year: 'Completed',
+                    icon: '&#127963;',
+                    color: '#FFD500',
+                    glow: 'rgba(255,213,0,.12)',
+                    note: 'Scored 93% — Science stream (PCM)'
+                },
+                {
+                    degree: 'Higher Secondary (Class X)',
+                    school: 'Satyabhama Vidya Mandir, Raebareli, Uttar Pradesh',
+                    year: 'Completed',
+                    icon: '&#127963;',
+                    color: '#009B48',
+                    glow: 'rgba(0,155,72,.15)',
+                    note: 'Scored 85%'
+                }
+            ],
             skills: [
                 {
                     name: 'Full Stack',
@@ -413,6 +477,30 @@
                     glowBg: 'rgba(0,155,72,.1)',
                     face: { f: '#009B48', b: '#007336', l: '#00853e', r: '#007336', t: '#00b854', d: '#005c2b' },
                     delay: '0s',
+                    level: 100
+                },
+                {
+                    name: 'Dev Tools &amp; Workflow',
+                    desc: 'VS Code, Jupyter, Git/GitHub, REST testing &amp; debugging',
+                    icon: '&#128736;',
+                    color: '#6F42C1',
+                    color2: '#00b4d8',
+                    glow: 'rgba(111,66,193,.15)',
+                    glowBg: 'rgba(111,66,193,.1)',
+                    face: { f: '#6F42C1', b: '#5933a0', l: '#6438b0', r: '#5933a0', t: '#7d52d0', d: '#42258a' },
+                    delay: '-1.25s',
+                    level: 100
+                },
+                {
+                    name: 'Cloud &amp; Platforms',
+                    desc: 'Cloudflare Workers, Vercel, AWS S3, Google Cloud Storage, Hadoop',
+                    icon: '&#9728;',
+                    color: '#F38020',
+                    color2: '#0ea5e9',
+                    glow: 'rgba(243,128,32,.15)',
+                    glowBg: 'rgba(243,128,32,.1)',
+                    face: { f: '#F38020', b: '#cc6a18', l: '#dd731c', r: '#cc6a18', t: '#ff9826', d: '#994a12' },
+                    delay: '-0.75s',
                     level: 100
                 }
             ],
@@ -489,6 +577,24 @@
                 }
             ]
         };
+
+        // ══════════════════════════════════════════════════
+        //  RENDER EDUCATION (SITE_DATA se)
+        // ══════════════════════════════════════════════════
+        (function renderEducation() {
+            const grid = document.getElementById('eduGrid');
+            if (!grid || !SITE_DATA.education.length) return;
+            grid.innerHTML = SITE_DATA.education.map(e => `
+                <div class="edu-card up" style="--eb:${e.color};--es:0 20px 55px ${e.glow}">
+                    <div class="edu-top">
+                        <span class="edu-ico">${e.icon}</span>
+                        <span class="edu-year">${e.year}</span>
+                    </div>
+                    <h3 class="edu-degree">${e.degree}</h3>
+                    <p class="edu-school">${e.school}</p>
+                    <p class="edu-note">${e.note}</p>
+                </div>`).join('');
+        })();
 
         // ══════════════════════════════════════════════════
         //  RENDER SKILLS (SITE_DATA se)
@@ -568,6 +674,31 @@
                     card.style.setProperty('--tilt-x', '0deg');
                     card.style.setProperty('--tilt-y', '0deg');
                     card.querySelector('.proj-inner')?.classList.remove('proj-tilted');
+                });
+            });
+        }
+
+        // ══════════════════════════════════════════════════
+        //  EDUCATION CARDS — 3D TILT FOLLOW CURSOR
+        // ══════════════════════════════════════════════════
+        if (tiltable) {
+            document.querySelectorAll('#eduGrid .edu-card').forEach(card => {
+                let rAF = null;
+                card.addEventListener('pointermove', e => {
+                    const r = card.getBoundingClientRect();
+                    const px = (e.clientX - r.left) / r.width - .5;
+                    const py = (e.clientY - r.top) / r.height - .5;
+                    card.style.setProperty('--tilt-x', (py * -9).toFixed(2) + 'deg');
+                    card.style.setProperty('--tilt-y', (px * 11).toFixed(2) + 'deg');
+                    card.style.setProperty('--tilt-gx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
+                    card.style.setProperty('--tilt-gy', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
+                    cancelAnimationFrame(rAF);
+                    rAF = requestAnimationFrame(() => card.classList.add('edu-tilted'));
+                });
+                card.addEventListener('pointerleave', () => {
+                    card.style.setProperty('--tilt-x', '0deg');
+                    card.style.setProperty('--tilt-y', '0deg');
+                    card.classList.remove('edu-tilted');
                 });
             });
         }
